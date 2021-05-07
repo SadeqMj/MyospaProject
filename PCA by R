@@ -1,0 +1,46 @@
+> getwd()
+#read excel file
+> my_data<-read_excel("Root/MyoospaRowTable.xlsx")                                         
+> my_data
+# A tibble: 47 x 11
+   `Sample ID` `Gait Speed Tes… `ST5 (GeneralMu…
+   <chr>                  <dbl>            <dbl>
+ 1 Ave 1.BS               0.820             5.32
+ .
+ .
+ .
+10 Ave 19.BS              0.916             7.53
+# … with 37 more rows, and 8 more variables:
+#   MME (Lean Muscle Mass) <dbl>,
+#   IMC (Body-Mass-Index) <dbl>,
+#   MM (Muscle Mass) <dbl>, Age <dbl>,
+#   Diagnosis <chr>, Gender <chr>,
+#   Age Status <chr>, Age&Gender <chr>
+> summary(my_data)
+  Sample ID         Gait Speed Test 
+ Length:47          Min.   :0.2423  
+ Class :character   1st Qu.:0.7875  
+ .
+ .
+ .
+ Mode  :character   Mode  :character  
+                                                                                                            
+> View(my_data)
+# calculate PCA
+> pca_data <- my_data[c(1:33),c(2:7)]
+> View(pca_data)
+> pca_graph<-prcomp(pca_data)
+> pca_graph$x[,1]
+ [1] -17.46645400  -1.09032595  -3.65472055
+ .
+ .
+ .
+[31]  -6.96246657  11.45473653  -7.28406184
+> plot(pca_graph$x[,1], pca_graph$x[,2])
+> df_out <- as.data.frame(pca_graph$x)
+> 
+> install.packages("ggplot2")
+> library(ggplot2)
+> plotFinal<-plotFinal+ geom_point()
+> plotFinal
+#End
